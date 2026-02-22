@@ -1,0 +1,67 @@
+{
+    "SpongeBob": {
+        "image" : "images/spongebob.png",
+        "reference_id": "0051da373e0a4ac282399909d1d31b69",
+        "color": "#ffeb3b"
+    },
+    "Squidward": {
+        "image" : "images/squidward.png",
+        "reference_id": "78eec471acaa454abf9e570ac19c59ed",
+        "color": "#00bcd4"
+    },
+    "Peter Griffin": {
+        "image" : "images/peter_griffin.png",
+        "reference_id": "1e4446d74f7f4be49981c081d0f72488",
+        "color": "#4caf50"
+    },
+    "Brian": {
+        "image" : "images/brian.png",
+        "reference_id": "df7b23b4d67c4340be1170ae6cbc2913",
+        "color": "#9c27b0"
+    },
+    "Stewie": {
+        "image" : "images/stewie.png",
+        "reference_id": "1b26b7f5f2ce4c7d8c2728774bf7b0b1",
+        "color": "#ff5722"
+    },
+    "Doofenshmirtz": {
+        "image" : "images/heinz_doofenshmirtz.png",
+        "reference_id": "87c2578fc7ed4f52a478bdf5e3051a81",
+        "color": "#3f51b5"
+    },
+    "Barack Obama": {
+        "image" : "images/barack_obama.png",
+        "reference_id": "a7a0826352d240878d6a6566b61e4a61",
+        "color": "#2196f3"
+    },
+    "Elon Musk": {
+        "image" : "images/elon_musk.png",
+        "reference_id": "03397b4c4be74759b72533b663fbd001",
+        "color": "#ff9800"
+    },
+    "Elmo": {
+        "image" : "images/elmo.png",
+        "reference_id": "8de8fab681304fb2b5d4e823f7721a5e",
+        "color": "#e91e63"
+    },
+    "Eric Cartman": {
+        "image" : "images/eric_cartman.png",
+        "reference_id": "729d51dffd084b2fb6914e919ae2920f",
+        "color": "#607d8b"
+    },
+    "Gordon Ramsay": {
+        "image" : "images/gordon_ramsay.png",
+        "reference_id": "e605a2a42b0a44ccb7af2e42e1676c92",
+        "color": "#ff5722"
+    },
+    "Morty": {
+        "image" : "images/morty.png",
+        "reference_id": "43b73431db0f4198b9c01f5d935dcc87",
+        "color": "#8bc34a"
+    },
+    "Rick": {
+        "image" : "images/rick.png",
+        "reference_id": "ada3fab76e534bba88c08a94a72413fb",
+        "color": "#9e9e9e"
+    }
+}

@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@theme {
+  --color-border: rgb(var(--border-color));
+  --color-background: rgb(var(--bg-primary));
+  --color-foreground: rgb(var(--text-primary));
+}
+
+:root {
+  --radius-lg: 1.5rem;
+  --radius-md: 1rem;
+  --radius-sm: 0.5rem;
+}
+
+[data-theme="light"] {
+  /* High contrast text for readability */
+  --bg-primary: 248 250 252; /* Slate 50 */
+  --bg-secondary: 255 255 255; /* White */
+  --bg-tertiary: 241 245 249; /* Slate 100 */
+  --bg-glass: 255 255 255; /* White base for glass */
+  
+  --text-primary: 15 23 42; /* Slate 900 - Very Dark for Contrast */
+  --text-secondary: 51 65 85; /* Slate 700 */
+  --text-tertiary: 100 116 139; /* Slate 500 */
+  
+  --border-color: 226 232 240; /* Slate 200 */
+  
+  /* Blue and Orange-Yellow Gradients */
+  --gradient-from: 37 99 235; /* Blue 600 */
+  --gradient-to: 245 158 11; /* Amber 500 */
+  
+  --accent-primary: 37 99 235; /* Blue 600 */
+  --accent-secondary: 249 115 22; /* Orange 500 */
+}
+
+[data-theme="dark"] {
+  /* Navy Blue and Purple Accents */
+  --bg-primary: 2 6 23; /* Slate 950 (Deep Navy) */
+  --bg-secondary: 15 23 42; /* Slate 900 */
+  --bg-tertiary: 30 41 59; /* Slate 800 */
+  --bg-glass: 15 23 42; /* Dark base for glass */
+  
+  --text-primary: 255 255 255;
+  --text-secondary: 203 213 225; /* Slate 300 */
+  --text-tertiary: 148 163 184; /* Slate 400 */
+  
+  --border-color: 51 65 85; /* Slate 700 */
+  
+  /* Purple/Pink Tech Vibe */
+  --gradient-from: 99 102 241; /* Indigo 500 */
+  --gradient-to: 168 85 247; /* Purple 500 */
+  
+  --accent-primary: 139 92 246; /* Violet 500 */
+  --accent-secondary: 236 72 153; /* Pink 500 */
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: rgb(var(--bg-primary));
+  color: rgb(var(--text-primary));
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(var(--bg-glass), 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(var(--border-color), 0.5);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(var(--bg-glass), 0.8) 0%, rgba(var(--bg-glass), 0.4) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(var(--border-color), 0.3);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Hide Scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

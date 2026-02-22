@@ -1,0 +1,36 @@
+{
+  "topic": "What's SCRUM?",
+  "video": "003.mp4",
+  "questions": [
+    {
+      "question": "What does SCRUM primarily help teams do in software development?",
+      "choices": [
+        "Crash into each other like in rugby",
+        "Work together efficiently and deliver software",
+        "Hold long meetings with coffee",
+        "Focus on individual tasks without collaboration"
+      ],
+      "correct_index": 1
+    },
+    {
+      "question": "What are the short work periods called in SCRUM?",
+      "choices": [
+        "Tackles",
+        "Sprints",
+        "Standups",
+        "Scrums"
+      ],
+      "correct_index": 1
+    },
+    {
+      "question": "What is the main purpose of daily SCRUM meetings?",
+      "choices": [
+        "To stand around and drink coffee",
+        "To sync the team and quickly address problems",
+        "To plan the next rugby game",
+        "To assign blame for bugs"
+      ],
+      "correct_index": 1
+    }
+  ]
+}

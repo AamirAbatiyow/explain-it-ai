@@ -1,0 +1,36 @@
+{
+  "topic": "Calculus vs Algebra",
+  "video": "005.mp4",
+  "questions": [
+    {
+      "question": "According to Morty, what is calculus compared to algebra?",
+      "choices": [
+        "Algebra's little cousin who loves numbers",
+        "Algebra on roller skates, finding rates of change",
+        "Algebra with fewer variables",
+        "Algebra's boring older sibling"
+      ],
+      "correct_index": 1
+    },
+    {
+      "question": "How does Rick describe calculus in relation to algebra?",
+      "choices": [
+        "Like algebra that went to the gym and got complicated",
+        "Algebra that is simpler and slower",
+        "Algebra without x",
+        "Like algebra that never changes"
+      ],
+      "correct_index": 0
+    },
+    {
+      "question": "What practical fields does Morty mention calculus helps us understand?",
+      "choices": [
+        "Biology and chemistry",
+        "Physics and economics",
+        "History and literature",
+        "Art and music"
+      ],
+      "correct_index": 1
+    }
+  ]
+}

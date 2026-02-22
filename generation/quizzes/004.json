@@ -1,0 +1,36 @@
+{
+  "topic": "Sine, Cosine, and Tangent",
+  "video": "004.mp4",
+  "questions": [
+    {
+      "question": "What is the ratio defined by sine in a right triangle?",
+      "choices": [
+        "Adjacent side over hypotenuse",
+        "Opposite side over hypotenuse",
+        "Opposite side over adjacent side",
+        "Hypotenuse over opposite side"
+      ],
+      "correct_index": 1
+    },
+    {
+      "question": "How is cosine defined in relation to the sides of a right triangle?",
+      "choices": [
+        "Opposite side over adjacent side",
+        "Adjacent side over hypotenuse",
+        "Hypotenuse over adjacent side",
+        "Opposite side over hypotenuse"
+      ],
+      "correct_index": 1
+    },
+    {
+      "question": "What is the correct expression for tangent in terms of sine and cosine?",
+      "choices": [
+        "Cosine divided by sine",
+        "Sine divided by cosine",
+        "Sine times cosine",
+        "Cosine minus sine"
+      ],
+      "correct_index": 1
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "brainrot-academy",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

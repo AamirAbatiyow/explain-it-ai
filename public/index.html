@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BrainRot Academy</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background: #111; color: #eee; min-height: 100vh; }
+    nav { display: flex; gap: 1rem; padding: 1rem; border-bottom: 1px solid #333; }
+    nav a { color: #8af; text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+    .page { display: none; padding: 1rem; max-width: 900px; margin: 0 auto; }
+    .page.active { display: block; }
+    h1 { font-size: 1.5rem; margin-top: 0; }
+    .char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.5rem; }
+    .char-tile { padding: 0.75rem; border: 2px solid #333; border-radius: 8px; cursor: pointer; text-align: center; font-size: 0.85rem; }
+    .char-tile:hover { border-color: #555; }
+    .char-tile.selected { border-color: #8af; background: rgba(136,170,255,0.2); }
+    .char-tile.disabled { opacity: 0.5; cursor: not-allowed; }
+    .form-row { margin: 1rem 0; }
+    .form-row label { display: block; margin-bottom: 0.25rem; color: #999; }
+    input[type="number"] { padding: 0.5rem; width: 100px; font-size: 1rem; background: #222; border: 1px solid #444; color: #eee; border-radius: 4px; }
+    button { padding: 0.6rem 1.2rem; font-size: 1rem; background: #8af; color: #111; border: none; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #9bf; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .video-feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .video-feed .video-card { background: #222; border-radius: 8px; overflow: hidden; }
+    .video-feed .video-card video { width: 100%; display: block; }
+    .video-feed .video-card .label { padding: 0.5rem; font-size: 0.9rem; }
+    .loading-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; z-index: 100; }
+    .loading-overlay.visible { display: flex; }
+    .loading-overlay .spinner { width: 48px; height: 48px; border: 4px solid #333; border-top-color: #8af; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .fake-page { padding: 2rem; text-align: center; color: #666; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#generate">Generate</a>
+    <a href="#profile">Profile</a>
+    <a href="#explore">Explore</a>
+    <a href="#leaderboard">Leaderboard</a>
+  </nav>
+
+  <div id="page-generate" class="page">
+    <h1>Generate</h1>
+    <p>Select exactly 2 characters, set duration, then Generate.</p>
+    <div class="form-row">
+      <label>Characters</label>
+      <div id="char-grid" class="char-grid"></div>
+    </div>
+    <div class="form-row">
+      <label>Duration (seconds)</label>
+      <input type="number" id="duration" min="1" value="30" />
+    </div>
+    <button id="btn-generate">Generate</button>
+    <h2 style="margin-top: 2rem;">Video feed</h2>
+    <div id="video-feed" class="video-feed"></div>
+  </div>
+
+  <div id="page-profile" class="page">
+    <h1>Profile</h1>
+    <p>Your posted videos.</p>
+    <div id="profile-feed" class="video-feed"></div>
+  </div>
+
+  <div id="page-home" class="page">
+    <h1>Home</h1>
+    <div class="fake-page">Home — fake navigation only.</div>
+  </div>
+
+  <div id="page-explore" class="page">
+    <h1>Explore</h1>
+    <div class="fake-page">Explore — fake navigation only.</div>
+  </div>
+
+  <div id="page-leaderboard" class="page">
+    <h1>Leaderboard</h1>
+    <div class="fake-page">Leaderboard — fake navigation only.</div>
+  </div>
+
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <span>Generating video…</span>
+  </div>
+
+  <script>
+    const loadingEl = document.getElementById('loading-overlay');
+    const charGridEl = document.getElementById('char-grid');
+    const durationEl = document.getElementById('duration');
+    const btnGenerate = document.getElementById('btn-generate');
+    const videoFeedEl = document.getElementById('video-feed');
+    const profileFeedEl = document.getElementById('profile-feed');
+
+    let characters = {};
+    let selected = [];
+
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach((p) => p.classList.remove('active'));
+      const page = document.getElementById('page-' + id);
+      if (page) page.classList.add('active');
+    }
+
+    function route() {
+      const hash = (window.location.hash || '#generate').slice(1) || 'generate';
+      showPage(hash);
+      if (hash === 'generate' || hash === 'profile') loadVideos();
+    }
+    window.addEventListener('hashchange', route);
+    window.addEventListener('load', () => { route(); loadCharacters(); });
+
+    async function loadCharacters() {
+      try {
+        const r = await fetch('/api/characters');
+        characters = await r.json();
+        renderCharGrid();
+      } catch (e) {
+        charGridEl.innerHTML = '<p style="color:#c44">Failed to load characters.</p>';
+      }
+    }
+
+    function renderCharGrid() {
+      const names = Object.keys(characters);
+      charGridEl.innerHTML = names.map((name) => {
+        const c = characters[name];
+        const color = c && c.color ? c.color : '#444';
+        return `<div class="char-tile" data-name="${escapeAttr(name)}" style="border-color: ${escapeAttr(color)}">${escapeHtml(name)}</div>`;
+      }).join('');
+      charGridEl.querySelectorAll('.char-tile').forEach((el) => {
+        el.addEventListener('click', () => toggleChar(el.getAttribute('data-name')));
+      });
+      updateCharSelection();
+    }
+
+    function escapeAttr(s) {
+      const div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML.replace(/"/g, '&quot;');
+    }
+    function escapeHtml(s) {
+      const div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML;
+    }
+
+    function toggleChar(name) {
+      const idx = selected.indexOf(name);
+      if (idx >= 0) {
+        selected.splice(idx, 1);
+      } else if (selected.length < 2) {
+        selected.push(name);
+      }
+      updateCharSelection();
+    }
+
+    function updateCharSelection() {
+      charGridEl.querySelectorAll('.char-tile').forEach((el) => {
+        const name = el.getAttribute('data-name');
+        el.classList.toggle('selected', selected.indexOf(name) >= 0);
+        el.classList.toggle('disabled', selected.length >= 2 && selected.indexOf(name) < 0);
+      });
+    }
+
+    async function loadVideos() {
+      try {
+        const r = await fetch('/api/videos');
+        const files = await r.json();
+        const list = files.map((f) => `<div class="video-card"><video src="/posted/${escapeAttr(f)}" controls></video><div class="label">${escapeHtml(f)}</div></div>`).join('');
+        videoFeedEl.innerHTML = list || '<p>No videos yet.</p>';
+        profileFeedEl.innerHTML = list || '<p>No videos yet.</p>';
+      } catch (e) {
+        videoFeedEl.innerHTML = '<p style="color:#c44">Failed to load videos.</p>';
+        profileFeedEl.innerHTML = '<p style="color:#c44">Failed to load videos.</p>';
+      }
+    }
+
+    btnGenerate.addEventListener('click', async () => {
+      if (selected.length !== 2) {
+        alert('Please select exactly 2 characters.');
+        return;
+      }
+      const duration = parseInt(durationEl.value, 10);
+      if (!(duration >= 1)) {
+        alert('Please enter a valid duration (seconds).');
+        return;
+      }
+      loadingEl.classList.add('visible');
+      btnGenerate.disabled = true;
+      try {
+        const res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            character1: selected[0],
+            character2: selected[1],
+            duration,
+          }),
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          alert(err.error || 'Generate failed.');
+        } else {
+          await loadVideos();
+        }
+      } catch (e) {
+        alert('Request failed: ' + e.message);
+      } finally {
+        loadingEl.classList.remove('visible');
+        btnGenerate.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

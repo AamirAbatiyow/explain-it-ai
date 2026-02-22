@@ -1,0 +1,36 @@
+{
+  "topic": "AI Can Make Mistakes",
+  "video": "001.mp4",
+  "questions": [
+    {
+      "question": "Why can AI make mistakes according to the video?",
+      "choices": [
+        "Because it learns from patterns that can sometimes be incorrect or confusing",
+        "Because AI is less intelligent than humans",
+        "Because AI does not use data at all",
+        "Because AI always follows exact instructions without error"
+      ],
+      "correct_index": 0
+    },
+    {
+      "question": "What example does Doofenshmirtz give to show his Inator making a mistake?",
+      "choices": [
+        "Turning his sandwich into a sock",
+        "Dropping his coffee",
+        "Turning his sock into a sandwich",
+        "Breaking down completely"
+      ],
+      "correct_index": 0
+    },
+    {
+      "question": "What is the relationship between the quality of data and AI's results as explained in the video?",
+      "choices": [
+        "Weird or poor data patterns lead to weird or incorrect AI results",
+        "Better data always makes AI slower",
+        "AI results are not affected by data quality",
+        "AI ignores data patterns when making decisions"
+      ],
+      "correct_index": 0
+    }
+  ]
+}

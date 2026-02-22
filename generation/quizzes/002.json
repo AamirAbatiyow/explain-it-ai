@@ -1,0 +1,36 @@
+{
+  "topic": "Linux or Windows?",
+  "video": "002.mp4",
+  "questions": [
+    {
+      "question": "How does SpongeBob describe Linux?",
+      "choices": [
+        "Like a pre-made Krabby Patty that sometimes crashes",
+        "Like a free Krabby Patty for your computer",
+        "Like a jellyfish sting waiting to happen",
+        "Like a clam that is alive"
+      ],
+      "correct_index": 1
+    },
+    {
+      "question": "What does Squidward think about Linux being free?",
+      "choices": [
+        "He thinks it's a great deal",
+        "He compares it to a jellyfish sting waiting to happen",
+        "He says it lets you customize everything",
+        "He prefers it over Windows"
+      ],
+      "correct_index": 1
+    },
+    {
+      "question": "Why does Squidward prefer Windows?",
+      "choices": [
+        "Because it lets you customize everything",
+        "Because it crashes like a clam",
+        "Because it is predictable",
+        "Because it's free"
+      ],
+      "correct_index": 2
+    }
+  ]
+}
